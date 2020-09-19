@@ -1,0 +1,70 @@
+---
+title: "DSCI301 HW 5"
+author: "Randy Nuhfer"
+date: "9/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Library loading...
+
+```{r}
+library(here)
+library(tidyverse)
+```
+
+## Problem 1:
+
+```{r}
+Spotify_path <- here("DSCI301/Git-Archives/My_DataSets/datasets_1833_3172_data.csv")
+Spotify <- read_csv(Spotify_path,
+                    col_types = cols(
+  X1 = col_double(),
+  acousticness = col_double(),
+  danceability = col_double(),
+  duration_ms = col_double(),
+  energy = col_double(),
+  instrumentalness = col_double(),
+  key = col_factor(),
+  liveness = col_double(),
+  loudness = col_double(),
+  mode = col_factor(),
+  speechiness = col_double(),
+  tempo = col_double(),
+  time_signature = col_double(),
+  valence = col_double(),
+  target = col_factor(),
+  song_title = col_character(),
+  artist = col_character()
+))
+```
+After reading in the data I changed three columns. Firstly, I changed the key column to a factor column because there is only a set number of keys. Secondly, I also changed mode to a factor as it only indicates whether the song is in a major key or minor key. Finally I chnaged the target column to a factor as well as this only indicates whether or not the creator of this data set liked that particular song.
+
+
+## Problem 2:
+
+```{r}
+Spotify %>%
+    ggplot(aes(x = loudness)) +
+    geom_histogram(bins = 15, fill = "blue", color = "red") +
+    labs(title = "Distribution of loudness (in decibels)")
+```
+
+Looking at this graph we can clearly see most songs have a loundness around -5 decibels.
+
+## Problem 3:
+
+```{r}
+Spotify %>%
+    ggplot(aes(x = loudness, y = liveness)) +
+    geom_point(color = "blue") +
+    labs(title = "Loudness vs Liveness")
+```
+
+Looking at this graph we can see that a large portion of songs that are rather loud tend to be performed without a live audience present. This may indicate that in the presents of an audience the audience itself drowns out the music a bit, while the louder songs are more than likely recorded in a studio with high end recording equipment to get that louder, crystal clear sounds.
+
+
+
