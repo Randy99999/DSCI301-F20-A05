@@ -19,7 +19,7 @@ library(tidyverse)
 ## Problem 1:
 
 ```{r}
-Spotify_path <- here("DSCI301/Git-Archives/My_DataSets/datasets_1833_3172_data.csv")
+Spotify_path <- here("datasets_1833_3172_data.csv")
 Spotify <- read_csv(Spotify_path,
                     col_types = cols(
   X1 = col_double(),
