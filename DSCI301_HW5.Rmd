@@ -55,6 +55,12 @@ Spotify %>%
 
 Looking at this graph we can clearly see most songs have a loundness around -5 decibels.
 
+<span style="color: green; font-size: 14pt">Hm. I had to go look up why these were reporting as negative decibels. (That seems like an immediate question on seeing this data!)</span> 
+
+<span style="color: green; font-size: 14pt">There is a bit more we could say here. Although there is a lot in the range of about -6 to -3, this is a left-skewed distribution; there are a lot of trailing values on the low end.</span> 
+
+<span style="color: green; font-size: 14pt">Also, that red border on the blue fill really clashes--I'd select something else.</span> 
+
 ## Problem 3:
 
 ```{r}
@@ -65,6 +71,17 @@ Spotify %>%
 ```
 
 Looking at this graph we can see that a large portion of songs that are rather loud tend to be performed without a live audience present. This may indicate that in the presents of an audience the audience itself drowns out the music a bit, while the louder songs are more than likely recorded in a studio with high end recording equipment to get that louder, crystal clear sounds.
+
+<span style="color: green; font-size: 14pt">I think you might be misinterpreting the loudness variable. If I'm understanding the explanation I read correctly, the negative decibel scale is based off of power sent to equipment, with 0 being the highest safe value for the equipment (i.e., the loudest physically possible).  This seems to be standard for recording equipment, in contrast to regular (positive) decibel readings. In that case, the louder readings are the ones closer to zero here....</span> 
+
+<span style="color: green; font-size: 14pt">I think there is also some significant overplotting going on in the lower right corner.  That is, I think there is a really high number of points there, which we can't really see because they are plotting over each other.  Adding an alpha (transparency) value (or using smaller points) might help the graph be more clear here:</span>
+
+```{r}
+Spotify %>%
+    ggplot(aes(x = loudness, y = liveness)) +
+    geom_point(color = "blue", alpha = .25) +
+    labs(title = "Loudness vs Liveness")
+```
 
 
 
